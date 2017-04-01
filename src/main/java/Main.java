@@ -9,7 +9,7 @@ public class Main {
         FishPond pond = new FishPond(100, 1000,0.0001);
 
         LinkedList<Double> percentages = new LinkedList<>();
-        percentages.add(0.1);
+        percentages.add(0.4);
 
         for (int i = 0; i < 100; i++) {
             System.out.println("Fished:  " + Math.round(pond.fish(percentages).get(0)));
