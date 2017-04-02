@@ -23,7 +23,7 @@ public class FishServerThread extends Thread {
 
     @Override
     public void run() {
-        try (PrintWriter out = new PrintWriter(socket.getOutputStream(), true); BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
+        try (PrintWriter out = new PrintWriter(socket.getOutputStream()); BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
             String inputLine;
             while ((inputLine = in.readLine()) != null) {
                 PossibleActions action;
@@ -34,7 +34,7 @@ public class FishServerThread extends Thread {
                 try {
                     action = PossibleActions.valueOf(arguments[0]);
                 } catch (IllegalArgumentException e) {
-                    out.println("Didn't understand: " + arguments[0]);
+                    out.println("Didn't understand: " + arguments[0] + "\n");
                     continue;
                 }
 
@@ -44,20 +44,23 @@ public class FishServerThread extends Thread {
                     case BUY:
                         amount = Double.parseDouble(arguments[1]);
                         costs = server.market.buy(player, amount);
-                        out.write(Double.toString(costs));
+                        out.write(Double.toString(costs) + "\n");
+                        out.flush();
                         break;
                     case SELL:
                         amount = Double.parseDouble(arguments[1]);
                         gains = server.market.buy(player, amount);
-                        out.write(Double.toString(gains));
+                        out.write(Double.toString(gains) + "\n");
+                        out.flush();
                         break;
                     case FISH:
                         amount = Double.parseDouble(arguments[1]);
                         server.addFishing(player, amount);
-                        out.write("OK");
+                        out.write("OK\n");
+                        out.flush();
                         break;
                     default:
-                        out.write("Action not yet implemented");
+                        out.write("Action not yet implemented\n");
                 }
             }
         } catch (IOException e) {

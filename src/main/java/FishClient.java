@@ -10,15 +10,18 @@ import java.net.Socket;
 public class FishClient {
     public static void main(String[] args) throws IOException {
         Socket socket = new Socket("127.0.0.1",10101);
-        PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+        PrintWriter out = new PrintWriter(socket.getOutputStream());
         BufferedReader in = new BufferedReader(
                 new InputStreamReader(socket.getInputStream()));
 
-        out.write("FISH 5");
+        out.write("FISH 5\n");
+        out.flush();
         in.readLine();
 
-        out.write("SELL 20");
+        out.write("SELL 20\n");
+        out.flush();
         double amount = Double.parseDouble(in.readLine());
         System.out.println("Got "+ amount + "€!!!");
+
     }
 }
