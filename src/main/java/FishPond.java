@@ -1,4 +1,5 @@
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -19,10 +20,16 @@ public class FishPond {
         this.growthFactor = growthFactor;
     }
 
-    public List<Double> fish(List<Double> percentages){
-         List<Double> amounts = percentages.stream().mapToDouble(percent->population * percent).mapToObj(d->(Double.valueOf(d))).collect(Collectors.toList());
-         population -= amounts.stream().mapToDouble(Double::doubleValue).sum();
-        return amounts;
+    public void fish(Map<Player, Double> percentages){
+        double amounts = 0;
+
+        for (Map.Entry<Player, Double> playerPercentage:percentages.entrySet()             ) {
+            double amount = population * playerPercentage.getValue();
+            playerPercentage.getKey().fish += amount;
+            amounts += amount;
+        }
+
+        population -= amounts;
     }
 
     public void repopulate(double time){

@@ -12,7 +12,7 @@ public class Main {
         percentages.add(0.4);
 
         for (int i = 0; i < 100; i++) {
-            System.out.println("Fished:  " + Math.round(pond.fish(percentages).get(0)));
+            //System.out.println("Fished:  " + Math.round(pond.fish(percentages).get(0)));
             pond.repopulate(1);
             System.out.println("Time " + (i+1) + ": " + Math.round(pond.population));
         }
