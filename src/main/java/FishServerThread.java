@@ -16,7 +16,7 @@ public class FishServerThread extends Thread {
 
     public FishServerThread(Socket accept, FishServer server) {
         super("FishServerThread");
-        this.socket = socket;
+        this.socket = accept;
         this.server = server;
         this.player = new Player("Player"+playerCount++, 100, 0);
     }
